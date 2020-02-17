@@ -1,0 +1,552 @@
+From: Christian Kastner <ckk@debian.org>
+Date: Sat, 26 Jul 2014 18:32:55 +0200
+Subject: Syntax fixes for man pages
+
+Hyphens used as minus signs must be escaped.
+
+Last-Update: 2015-10-02
+---
+ doc/cap_clear.3     |  2 +-
+ doc/cap_copy_ext.3  |  6 ++---
+ doc/cap_from_text.3 | 18 ++++++-------
+ doc/cap_get_file.3  |  2 +-
+ doc/cap_get_proc.3  | 14 +++++-----
+ doc/cap_init.3      |  2 +-
+ doc/capsh.1         | 74 ++++++++++++++++++++++++++---------------------------
+ doc/getcap.8        | 10 ++++----
+ doc/libcap.3        |  2 +-
+ doc/setcap.8        | 18 ++++++-------
+ 10 files changed, 74 insertions(+), 74 deletions(-)
+
+diff --git a/doc/cap_clear.3 b/doc/cap_clear.3
+index 48f5cc0..73aac61 100644
+--- a/doc/cap_clear.3
++++ b/doc/cap_clear.3
+@@ -18,7 +18,7 @@ cap_clear, cap_clear_flag, cap_get_flag, cap_set_flag, cap_compare \- capability
+ .sp
+ .BI "int cap_compare(cap_t " cap_a ", cap_t " cap_b ");"
+ .sp
+-Link with \fI-lcap\fP.
++Link with \fI\-lcap\fP.
+ .fi
+ .SH DESCRIPTION
+ These functions work on a capability state held in working storage.
+diff --git a/doc/cap_copy_ext.3 b/doc/cap_copy_ext.3
+index 61d9381..18c2fe6 100644
+--- a/doc/cap_copy_ext.3
++++ b/doc/cap_copy_ext.3
+@@ -11,7 +11,7 @@ external representation translation
+ .sp
+ .BI "cap_t cap_copy_int(const void *" ext_p );
+ .sp
+-Link with \fI-lcap\fP.
++Link with \fI\-lcap\fP.
+ .SH DESCRIPTION
+ These functions translate between internal and external
+ representations of a capability state.  The external representation is
+@@ -74,12 +74,12 @@ as an argument.
+ .SH "RETURN VALUE"
+ .BR cap_size ()
+ returns the length required to hold a capability data record on success,
+-and -1 on failure.
++and \-1 on failure.
+ .PP
+ .BR cap_copy_ext ()
+ returns the number of bytes placed in the user managed space pointed to by
+ .I ext_p 
+-on success, and -1 on failure.
++on success, and \-1 on failure.
+ .PP
+ .BR cap_copy_int ()
+ returns a pointer to the newly created capability state in working storage
+diff --git a/doc/cap_from_text.3 b/doc/cap_from_text.3
+index ccf7d95..bb24af2 100644
+--- a/doc/cap_from_text.3
++++ b/doc/cap_from_text.3
+@@ -16,7 +16,7 @@ state textual representation translation
+ .sp
+ .BI "char *cap_to_name(cap_value_t " cap );
+ .sp
+-Link with \fI-lcap\fP.
++Link with \fI\-lcap\fP.
+ .SH DESCRIPTION
+ These functions translate a capability state between
+ an internal representation and a textual one.
+@@ -100,7 +100,7 @@ followed by an
+ An action-list consists of a sequence of
+ .I operator flag
+ pairs.  Legal operators are:
+-.RB ` = "', '" + "', and `" - "'."
++.RB ` = "', '" + "', and `" \- "'."
+ Legal flags are:
+ .RB ` e "', `" i "', and `" p "'."
+ These flags are case-sensitive and specify the Effective, Inheritable
+@@ -136,15 +136,15 @@ refer to `all' capabilities.  For example, the following three
+ clauses are equivalent to each other (and indicate a completely empty
+ capability set): "all="; "="; "cap_chown,<every-other-capability>=".
+ .PP
+-The operators, `+' and `-' both require an explicit preceding
++The operators, `+' and `\-' both require an explicit preceding
+ capability list and one or more explicit trailing flags.  The `+'
+ operator will raise all of the listed capabilities in the flagged
+-capability sets.  The `-' operator will lower all of the listed
++capability sets.  The `\-' operator will lower all of the listed
+ capabilities in the flagged capability sets.  For example:
+-"all+p" will raise all of the Permitted capabilities; "cap_fowner+p-i"
++"all+p" will raise all of the Permitted capabilities; "cap_fowner+p\-i"
+ will raise the override-file-ownership capability in the Permitted
+ capability set and lower this Inheritable capability;
+-"cap_fowner+pe-i" and "cap_fowner=+pe" are equivalent.
++"cap_fowner+pe\-i" and "cap_fowner=+pe" are equivalent.
+ .SH "RETURN VALUE"
+ .BR cap_from_text (),
+ .BR cap_to_text ()
+@@ -152,7 +152,7 @@ and
+ .BR cap_to_name ()
+ return a non-NULL value on success, and NULL on failure.
+ .BR cap_from_name ()
+-returns 0 for success, and -1 on failure (unknown capability).
++returns 0 for success, and \-1 on failure (unknown capability).
+ .PP
+ On failure,
+ .I errno
+@@ -180,8 +180,8 @@ The following shell session shows a some example runs:
+ 
+ $ ./a.out "cap_chown=p cap_chown+e"
+ caps_to_text() returned "= cap_chown+ep"
+-$ ./a.out "all=pe cap_chown-e cap_kill-pe"
+-caps_to_text() returned "=ep cap_chown-e cap_kill-ep"
++$ ./a.out "all=pe cap_chown\-e cap_kill\-pe"
++caps_to_text() returned "=ep cap_chown\-e cap_kill\-ep"
+ 
+ .fi
+ .in
+diff --git a/doc/cap_get_file.3 b/doc/cap_get_file.3
+index 8ffbba4..a99ab40 100644
+--- a/doc/cap_get_file.3
++++ b/doc/cap_get_file.3
+@@ -22,7 +22,7 @@ manipulation on files
+ .sp
+ .BI "int cap_set_nsowner(cap_t " caps ", uid_t " rootid );
+ .sp
+-Link with \fI-lcap\fP.
++Link with \fI\-lcap\fP.
+ .SH DESCRIPTION
+ .BR cap_get_file ()
+ and
+diff --git a/doc/cap_get_proc.3 b/doc/cap_get_proc.3
+index 80f7e21..94ee554 100644
+--- a/doc/cap_get_proc.3
++++ b/doc/cap_get_proc.3
+@@ -45,7 +45,7 @@ cap_mode_name, cap_get_pid, cap_setuid, cap_setgroups \
+ .BI "int cap_setgroups(gid_t " gid ", size_t " ngroups ", const gid_t " \
+ groups );
+ .sp
+-Link with \fI-lcap\fP.
++Link with \fI\-lcap\fP.
+ .SH DESCRIPTION
+ .BR cap_get_proc ()
+ allocates a capability state in working storage, sets its state to
+@@ -202,7 +202,7 @@ return a non-NULL value on success, and NULL on failure.
+ .PP
+ The function
+ .BR cap_get_bound ()
+-returns -1 if the requested capability is unknown, otherwise the
++returns \-1 if the requested capability is unknown, otherwise the
+ return value reflects the current state of that capability in the
+ prevailing bounding set. Note, a macro function,
+ .PP
+@@ -271,11 +271,11 @@ attempts to set the capabilities of some other process(es),
+ If
+ .I pid
+ is positive it refers to a specific process;  if it is zero, it refers
+-to the current process; -1 refers to all processes other than the
++to the current process; \-1 refers to all processes other than the
+ current process and process '1' (typically 
+ .BR init (8));
+ other negative values refer to the
+-.I -pid
++.I \-pid
+ process group.  In order to use this function, the kernel must support
+ it and the current process must have
+ .B CAP_SETPCAP
+@@ -319,13 +319,13 @@ effective capabilities for the caller:
+     if (caps == NULL)
+         /* handle error */;
+ 
+-    if (cap_set_flag(caps, CAP_EFFECTIVE, 2, cap_list, CAP_SET) == -1)
++    if (cap_set_flag(caps, CAP_EFFECTIVE, 2, cap_list, CAP_SET) == \-1)
+         /* handle error */;
+ 
+-    if (cap_set_proc(caps) == -1)
++    if (cap_set_proc(caps) == \-1)
+         /* handle error */;
+ 
+-    if (cap_free(caps) == -1)
++    if (cap_free(caps) == \-1)
+         /* handle error */;
+     ...
+ 
+diff --git a/doc/cap_init.3 b/doc/cap_init.3
+index f198f63..96cfea6 100644
+--- a/doc/cap_init.3
++++ b/doc/cap_init.3
+@@ -13,7 +13,7 @@ cap_init, cap_free, cap_dup \- capability data object storage management
+ .sp
+ .BI "cap_t cap_dup(cap_t " cap_p );
+ .sp
+-Link with \fI-lcap\fP.
++Link with \fI\-lcap\fP.
+ .SH DESCRIPTION
+ The capabilities associated with a file or process are never edited
+ directly.  Instead, working storage is allocated to contain a
+diff --git a/doc/capsh.1 b/doc/capsh.1
+index 1e28b59..1720430 100644
+--- a/doc/capsh.1
++++ b/doc/capsh.1
+@@ -13,18 +13,18 @@ debugging features useful for summarizing capability state.
+ The tool takes a number of optional arguments, acting on them in the
+ order they are provided. They are as follows:
+ .TP 22
+-.B --help
++.B \-\-help
+ Display the list of commands supported by
+ .BR capsh .
+ .TP
+-.B --print
++.B \-\-print
+ Display prevailing capability and related state.
+ .TP
+-.BI -- " [args]"
++.BI \-\- " [args]"
+ Execute
+ .B /bin/bash
+ with trailing arguments. Note, you can use
+-.B -c 'command to execute'
++.B \-c 'command to execute'
+ for specific commands.
+ .TP
+ .B ==
+@@ -34,7 +34,7 @@ again with remaining arguments. Useful for testing
+ .BR exec ()
+ behavior.
+ .TP
+-.BI --caps= cap-set
++.BI \-\-caps= cap-set
+ Set the prevailing process capabilities to those specified by
+ .IR cap-set .
+ Where
+@@ -42,9 +42,9 @@ Where
+ is a text-representation of capability state as per
+ .BR cap_from_text (3).
+ .TP
+-.BI --drop= cap-list
++.BI \-\-drop= cap-list
+ Remove the listed capabilities from the prevailing bounding set. The
+-capabilites are a comma separated list of capabilities as recognized
++capabilities are a comma separated list of capabilities as recognized
+ by the
+ .BR cap_from_name (3)
+ function. Use of this feature requires that the capsh program is
+@@ -52,7 +52,7 @@ operating with
+ .B CAP_SETPCAP
+ in its effective set.
+ .TP
+-.BI --inh= cap-list
++.BI \-\-inh= cap-list
+ Set the inheritable set of capabilities for the current process to
+ equal those provided in the comma separated list. For this action to
+ succeed, the prevailing process should already have each of these
+@@ -61,7 +61,7 @@ capability sets, or the capsh program is operating with
+ .B CAP_SETPCAP
+ in its effective set.
+ .TP
+-.BI --user= username
++.BI \-\-user= username
+ Assume the identity of the named user. That is, look up the user's
+ .IR uid " and " gid
+ with
+@@ -76,20 +76,20 @@ Following this command, the effective capabilities will be cleared,
+ but the permitted set will not be so the running program is still
+ privileged.
+ .TP
+-.B --modes
++.B \-\-modes
+ Lists all of the libcap modes supported by
+-.BR --mode .
++.BR \-\-mode .
+ .TP
+-.BR --mode= <mode>
++.BR \-\-mode= <mode>
+ Force the program into a
+ .BR cap_set_mode (3)
+ security mode. This is a set of securebits and prevailing capability
+ arrangement recommended for its pre-determined security stance.
+ .TP
+-.BR --inmode= <mode>
++.BR \-\-inmode= <mode>
+ Confirm that the prevailing mode is so named, or exit with a status 1.
+ .TP
+-.BI --uid= id
++.BI \-\-uid= id
+ Force all
+ .B uid
+ values to equal
+@@ -99,7 +99,7 @@ using the
+ system call. This argument may require explicit preparation of the
+ effective set.
+ .TP
+-.BR --cap-uid= <uid>
++.BR \-\-cap\-uid= <uid>
+ use the
+ .BR cap_setuid (3)
+ function to set the uid of the current process. This performs all
+@@ -107,11 +107,11 @@ prepations for setting the uid without dropping capabilities in the
+ process. Following this command the prevailing effective capabilities
+ will be lowered.
+ .TP
+-.BI --is-uid= <id>
++.BI \-\-is-uid= <id>
+ Exit with status 1 unless the current
+ .IR uid " equals " <id> .
+ .TP
+-.BI --gid= <id>
++.BI \-\-gid= <id>
+ Force all
+ .B gid
+ values to equal
+@@ -120,11 +120,11 @@ using the
+ .BR setgid (2)
+ system call.
+ .TP
+-.BI --is-gid= <id>
++.BI \-\-is-gid= <id>
+ Exit with status 1 unless the current
+ .IR gid " equals " <id> .
+ .TP
+-.BI --groups= <gid-list>
++.BI \-\-groups= <gid-list>
+ Set the supplementary groups to the numerical list provided. The
+ groups are set with the
+ .BR setgroups (2)
+@@ -132,7 +132,7 @@ system call. See
+ .B --user
+ for a more convenient way of doing this.
+ .TP
+-.BI --keep= <0|1>
++.BI \-\-keep= <0|1>
+ In a non-pure capability mode, the kernel provides liberal privilege
+ to the super-user. However, it is normally the case that when the
+ super-user changes
+@@ -155,17 +155,17 @@ is performed. See
+ .B --secbits
+ for ways to disable this feature.
+ .TP
+-.BI --secbits= N
++.BI \-\-secbits= N
+ Set the security-bits for the program, this is via
+ .BR prctl "(2), " PR_SET_SECUREBITS
+ API, and the list of supported bits and their meaning can be found in
+ the
+ .B <sys/secbits.h>
+ header file. The program will list these bits via the
+-.B --print
++.B \-\-print
+ command.
+ .TP
+-.BI --chroot= path
++.BI \-\-chroot= path
+ Execute the
+ .BR chroot (2)
+ system call with the new root-directory (/) equal to
+@@ -174,17 +174,17 @@ This operation requires
+ .B CAP_SYS_CHROOT
+ to be in effect.
+ .TP
+-.BI --forkfor= sec
++.BI \-\-forkfor= sec
+ This command causes the program to fork a child process for so many
+ seconds. The child will sleep that long and then exit with status
+ 0. The purpose of this command is to support exploring the way
+ processes are killable in the face of capability changes. See the
+-.B --killit
++.B \-\-killit
+ command. Only one fork can be active at a time.
+ .TP
+-.BI --killit= sig
++.BI \-\-killit= sig
+ This commands causes a
+-.B --forkfor
++.B \-\-forkfor
+ child to be
+ .BR kill (2)d
+ with the specified signal. The command then waits for the child to exit.
+@@ -192,7 +192,7 @@ If the exit status does not match the signal being used to kill it, the
+ .B capsh
+ program exits with status 1.
+ .TP
+-.BI --decode= N
++.BI \-\-decode= N
+ This is a convenience feature. If you look at
+ .B /proc/1/status
+ there are some capability related fields of the following form:
+@@ -206,44 +206,44 @@ This option provides a quick way to decode a capability vector
+ represented in this form. For example, the missing capability from
+ this effective set is 0x0100. By running:
+ 
+- capsh --decode=0x0100
++ capsh \-\-decode=0x0100
+ 
+ we observe that the missing capability is:
+ .BR cap_setpcap .
+ .TP
+-.BI --supports= xxx
++.BI \-\-supports= xxx
+ As the kernel evolves, more capabilities are added. This option can be used
+ to verify the existence of a capability on the system. For example,
+-.BI --supports= cap_syslog
++.BI \-\-supports= cap_syslog
+ will cause capsh to promptly exit with a status of 1 when run on
+ kernel 2.6.27.  However, when run on kernel 2.6.38 it will silently
+ succeed.
+ .TP
+-.BI --has-p= xxx
++.BI \-\-has-p= xxx
+ Exit with status 1 unless the
+ .I permitted
+ vector has capability
+ .B xxx
+ raised.
+ .TP
+-.B --has-ambient
++.B \-\-has-ambient
+ Performs a check to see if the running kernel supports ambient
+ capabilities. If not, the capsh command exits with status 1.
+ .TP
+-.BI --has-a= xxx
++.BI \-\-has-a= xxx
+ Exit with status 1 unless the
+ .I ambient
+ vector has capability
+ .B xxx
+ raised.
+ .TP
+-.BI --addamb= xxx
++.BI \-\-addamb= xxx
+ Adds the specificed ambient capability to the running process.
+ .TP
+-.BI --delamb= xxx
++.BI \-\-delamb= xxx
+ Removes the specified ambient capability from the running process.
+ .TP
+-.B --noamb
++.B \-\-noamb
+ Drops all ambient capabilities from the running process.
+ .TP
+ 
+diff --git a/doc/getcap.8 b/doc/getcap.8
+index c3c1f37..05ee9bb 100644
+--- a/doc/getcap.8
++++ b/doc/getcap.8
+@@ -3,23 +3,23 @@
+ .SH NAME
+ getcap \- examine file capabilities
+ .SH SYNOPSIS
+-\fBgetcap\fP [-v] [-n] [-r] [-h] \fIfilename\fP [ ... ]
++\fBgetcap\fP [\-v] [\-n] [\-r] [\-h] \fIfilename\fP [ ... ]
+ .SH DESCRIPTION
+ .B getcap
+ displays the name and capabilities of each specified
+ .SH OPTIONS
+ .TP 4
+-.B -h
++.B \-h
+ prints quick usage.
+ .TP 4
+-.B -n
++.B \-n
+ prints any non-zero namespace rootid value found to be associated with
+ a file's capabilities.
+ .TP 4
+-.B -r
++.B \-r
+ enables recursive search.
+ .TP 4
+-.B -v
++.B \-v
+ enables to display all searched entries, even if it has no file-capabilities.
+ .TP 4
+ .IR filename
+diff --git a/doc/libcap.3 b/doc/libcap.3
+index c976cab..730e275 100644
+--- a/doc/libcap.3
++++ b/doc/libcap.3
+@@ -56,7 +56,7 @@ cap_get_pid, cap_dup \- capability data object manipulation
+ .sp
+ .BI "cap_t cap_dup(cap_t " cap_p );
+ .sp
+-Link with \fI-lcap\fP.
++Link with \fI\-lcap\fP.
+ .fi
+ .SH DESCRIPTION
+ These functions work on a capability state held in working storage.
+diff --git a/doc/setcap.8 b/doc/setcap.8
+index 3bc6c42..c5331cc 100644
+--- a/doc/setcap.8
++++ b/doc/setcap.8
+@@ -2,10 +2,10 @@
+ .SH NAME
+ setcap \- set file capabilities
+ .SH SYNOPSIS
+-\fBsetcap\fP [-q] [-n <rootid>] [-v] {\fIcapabilities|-|-r} filename\fP [ ... \fIcapabilitiesN\fP \fIfileN\fP ]
++\fBsetcap\fP [\-q] [\-n <rootid>] [\-v] {\fIcapabilities|\-|\-r} filename\fP [ ... \fIcapabilitiesN\fP \fIfileN\fP ]
+ .SH DESCRIPTION
+ In the absence of the
+-.B -v
++.B \-v
+ (verify) option
+ .B setcap
+ sets the capabilities of each specified
+@@ -13,13 +13,13 @@ sets the capabilities of each specified
+ to the
+ .I capabilities
+ specified.  The optional
+-.B -n <rootid>
++.B \-n <rootid>
+ argument can be used to set the file capability for use only in a
+ namespace with this rootid owner. The
+-.B -v
++.B \-v
+ option is used to verify that the specified capabilities are currently
+-associated with the file. If -v and -n are supplied, the
+-.B -n <rootid>
++associated with the file. If \-v and \-n are supplied, the
++.B \-n <rootid>
+ argument is also verified.
+ .PP
+ The
+@@ -28,13 +28,13 @@ are specified in the form described in
+ .IR cap_from_text (3).
+ .PP
+ The special capability string,
+-.BR '-' ,
++.BR '\-' ,
+ can be used to indicate that capabilities are read from the standard
+ input. In such cases, the capability set is terminated with a blank
+ line.
+ .PP
+ The special capability string,
+-.BR '-r' ,
++.BR '\-r' ,
+ is used to remove a capability set from a file. Note, setting an empty
+ capability set is
+ .B not the same
+@@ -44,7 +44,7 @@ ambient+inheritable sets would otherwise bestow capabilities on
+ executed binaries.
+ .PP
+ The
+-.B -q
++.B \-q
+ flag is used to make the program less verbose in its output.
+ .SH "EXIT CODE"
+ The

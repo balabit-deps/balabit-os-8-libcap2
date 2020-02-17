@@ -1,0 +1,26 @@
+From: Christian Kastner <ckk@kvr.at>
+Date: Tue, 5 Nov 2019 23:11:05 +0100
+Subject: pam_cap: Honor PAM_REINITIALIZE_CRED
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Daniel Gröber discovered that pam_cap did not handle PAM_REINITIALIZE_CRED,
+which eg: sudo passes.
+---
+ pam_cap/pam_cap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pam_cap/pam_cap.c b/pam_cap/pam_cap.c
+index a800f58..fd5cc34 100644
+--- a/pam_cap/pam_cap.c
++++ b/pam_cap/pam_cap.c
+@@ -458,7 +458,7 @@ int pam_sm_setcred(pam_handle_t *pamh, int flags,
+     int retval;
+     struct pam_cap_s pcs;
+ 
+-    if (!(flags & PAM_ESTABLISH_CRED)) {
++    if (!(flags & (PAM_ESTABLISH_CRED | PAM_REINITIALIZE_CRED))) {
+ 	D(("we don't handle much in the way of credentials"));
+ 	return PAM_IGNORE;
+     }

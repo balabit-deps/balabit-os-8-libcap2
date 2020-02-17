@@ -1,0 +1,23 @@
+From: Christian Kastner <ckk@kvr.at>
+Date: Sat, 30 Apr 2016 14:43:25 +0200
+Subject: Spelling fixes
+
+Forwarded: yes
+Last-Update: 2016-04-30
+---
+ progs/capsh.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/progs/capsh.c b/progs/capsh.c
+index 36a59d9..c2f55ba 100644
+--- a/progs/capsh.c
++++ b/progs/capsh.c
+@@ -869,7 +869,7 @@ int main(int argc, char *argv[], char *envp[])
+ 		   "  --killit=<n>   send signal(n) to child\n"
+ 		   "  --forkfor=<n>  fork and make child sleep for <n> sec\n"
+ 		   "  ==             re-exec(capsh) with args as for --\n"
+-		   "  --             remaing arguments are for /bin/bash\n"
++		   "  --             remaining arguments are for /bin/bash\n"
+ 		   "                 (without -- [%s] will simply exit(0))\n",
+ 		   argv[0], argv[0]);
+ 

@@ -1,0 +1,32 @@
+From: Christian Kastner <ckk@kvr.at>
+Date: Sun, 9 Feb 2020 14:55:56 +0100
+Subject: Fixes for man page typos
+
+---
+ doc/cap_get_proc.3 | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/doc/cap_get_proc.3 b/doc/cap_get_proc.3
+index 94ee554..3eef3f7 100644
+--- a/doc/cap_get_proc.3
++++ b/doc/cap_get_proc.3
+@@ -32,7 +32,7 @@ cap_mode_name, cap_get_pid, cap_setuid, cap_setgroups \
+ .sp
+ .B "cap_mode_t cap_get_mode(void);"
+ .sp
+-.BU "const char *cap_mode_name(cap_mode_t " mode );
++.BI "const char *cap_mode_name(cap_mode_t " mode );
+ .sp
+ .BI "int cap_set_mode(cap_mode_t " mode );
+ .sp
+@@ -236,8 +236,8 @@ not memory isolated. As a workaround for this,
+ .B libcap
+ is packaged with a separate POSIX semantics system call library:
+ .BR libpsx .
+-If your program uses POSIX threads, to achieve meaninful POSIX
+-sematics capability manipulation, you should link your program with:
++If your program uses POSIX threads, to achieve meaningful POSIX
++semantics capability manipulation, you should link your program with:
+ .sp
+ .B ld ... -lcap -lpsx -lpthread --wrap=pthread_create
+ .sp
