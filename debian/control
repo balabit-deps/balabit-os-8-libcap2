@@ -1,7 +1,8 @@
 Source: libcap2
 Section: libs
 Priority: optional
-Maintainer: Christian Kastner <ckk@debian.org>
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Christian Kastner <ckk@debian.org>
 Build-Depends:
     debhelper-compat (= 12),
     indent,

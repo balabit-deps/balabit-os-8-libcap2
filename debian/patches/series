@@ -10,3 +10,5 @@ Use-DEB_GAIN_ROOT_CMD-for-make-test.patch
 Make.Rules-Allow-overriding-DYNAMIC.patch
 pam_cap-Honor-PAM_REINITIALIZE_CRED.patch
 Fixes-for-man-page-typos.patch
+CVE-2023-2602.patch
+CVE-2023-2603.patch
